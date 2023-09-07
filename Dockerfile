@@ -66,7 +66,10 @@ COPY download_gecko_and_mono.sh /root/download_gecko_and_mono.sh
 RUN chmod +x /root/download_gecko_and_mono.sh \
     && /root/download_gecko_and_mono.sh "$(wine --version | sed -E 's/^wine-//')" \
     \
-    && su user -c 'WINEARCH=win64 wine64 wineboot' \
+    
+    && su user -c 'WINEARCH=win32 WINEPREFIX=~/.wine winecfg' \
+    && su user -c 'WINEARCH=win64 WINEPREFIX=~/.wine64 winecfg' \
+    && su user -c 'WINEARCH=win32 wine wineboot' \
     \
     # wintricks
     && su user -c 'winetricks -q msls31' \

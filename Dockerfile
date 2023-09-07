@@ -67,8 +67,8 @@ RUN chmod +x /root/download_gecko_and_mono.sh \
     && /root/download_gecko_and_mono.sh "$(wine --version | sed -E 's/^wine-//')" \
     \
     
-    && su wineuser -c 'WINEARCH=win32 WINEPREFIX=~/.wine winecfg' \
-    && su wineuser -c 'WINEARCH=win64 WINEPREFIX=~/.wine64 winecfg' \
+    && su wineuser -c 'WINEARCH=win32 WINEPREFIX=/home/wineuser/.wine winecfg' \
+    && su wineuser -c 'WINEARCH=win64 WINEPREFIX=/home/wineuser/.wine64 winecfg' \
     && su wineuser -c 'WINEARCH=win32 wine wineboot' \
     \
     # wintricks

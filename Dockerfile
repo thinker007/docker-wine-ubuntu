@@ -41,12 +41,12 @@ RUN apt-get update \
     && apt-get clean \
     && rm -fr /tmp/*
     
-RUN groupadd group \
-  && useradd -m -g group user \
-  && usermod -a -G audio user \
-  && usermod -a -G video user \
-  && chsh -s /bin/bash user \
-  && echo 'User Created'
+#RUN groupadd group \
+#  && useradd -m -g group user \
+#  && usermod -a -G audio user \
+#  && usermod -a -G video user \
+#  && chsh -s /bin/bash user \
+#  && echo 'User Created'
   
 # Install wine
 ARG WINE_BRANCH="stable"
@@ -67,20 +67,20 @@ RUN chmod +x /root/download_gecko_and_mono.sh \
     && /root/download_gecko_and_mono.sh "$(wine --version | sed -E 's/^wine-//')" \
     \
     
-    && su user -c 'WINEARCH=win32 WINEPREFIX=~/.wine winecfg' \
-    && su user -c 'WINEARCH=win64 WINEPREFIX=~/.wine64 winecfg' \
-    && su user -c 'WINEARCH=win32 wine wineboot' \
+    && su wineuser -c 'WINEARCH=win32 WINEPREFIX=~/.wine winecfg' \
+    && su wineuser -c 'WINEARCH=win64 WINEPREFIX=~/.wine64 winecfg' \
+    && su wineuser -c 'WINEARCH=win32 wine wineboot' \
     \
     # wintricks
-    && su user -c 'winetricks -q msls31' \
-    && su user -c 'winetricks -q ole32' \
-    && su user -c 'winetricks -q riched20' \
-    && su user -c 'winetricks -q riched30' \
-    && su user -c 'winetricks -q win7' \
+    && su wineuser -c 'winetricks -q msls31' \
+    && su wineuser -c 'winetricks -q ole32' \
+    && su wineuser -c 'winetricks -q riched20' \
+    && su wineuser -c 'winetricks -q riched30' \
+    && su wineuser -c 'winetricks -q win7' \
     \
     # Clean
     && rm -fr /usr/share/wine/{gecko,mono} \
-    && rm -fr /home/user/{.cache,tmp}/* \
+    && rm -fr /home/wineuser/{.cache,tmp}/* \
     && rm -fr /tmp/* \
     && echo 'Wine Initialized'
 

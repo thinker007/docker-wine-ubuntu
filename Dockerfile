@@ -64,7 +64,7 @@ RUN wget -nv -O /usr/bin/winetricks https://raw.githubusercontent.com/Winetricks
 # Download gecko and mono installers
 COPY download_gecko_and_mono.sh /root/download_gecko_and_mono.sh
 RUN chmod +x /root/download_gecko_and_mono.sh \
-    && /root/download_gecko_and_mono.sh "$(wine --version | sed -E 's/^wine-//')"
+    && /root/download_gecko_and_mono.sh "$(wine --version | sed -E 's/^wine-//')" \
     \
     && su user -c 'WINEARCH=win64 wine wineboot' \
     \

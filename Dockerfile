@@ -36,7 +36,7 @@ RUN apt-get update \
         curl \
         gnupg2 \
         software-properties-common \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
     && apt-get autoremove -y \
     && apt-get clean \
     && rm -fr /tmp/*

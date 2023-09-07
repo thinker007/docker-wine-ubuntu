@@ -76,6 +76,7 @@ RUN chmod +x /root/download_gecko_and_mono.sh \
     && su user -c 'winetricks -q win7' \
     \
     # Clean
+    && rm -fr /usr/share/wine/{gecko,mono} \
     && rm -fr /home/user/{.cache,tmp}/* \
     && rm -fr /tmp/* \
     && echo 'Wine Initialized'
